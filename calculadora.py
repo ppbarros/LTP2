@@ -18,33 +18,28 @@ def calculadora():
            '</form>' \
            '</body></html>'
 
-
+def get_num(request):
+    n1 = int(request.args.get('n1', default="0"))
+    n2 = int(request.args.get('n2', default="0"))
+    return n1, n2
 
 @app.route('/somar')
 def somar():
-    n1 = int(request.args.get('n1', default="0"))
-    n2 = int(request.args.get('n2', default="0"))
-    return str(n1 + n2) + '<br/><br/><a href="/"> Voltar</a>'
+    return '<head><title>Calculadora</title></head>' + str(get_num(request)[0] + get_num(request)[1]) + '<br/><br/><a href="/"> Voltar</a>'
 
 @app.route('/subtrair')
 def sub():
-    n1 = int(request.args.get('n1', default="0"))
-    n2 = int(request.args.get('n2', default="0"))
-    return str(n1 - n2) + '<br/><br/><a href="/"> Voltar</a>'
+    return '<head><title>Calculadora</title></head>' + str(get_num(request)[0] - get_num(request)[1]) + '<br/><br/><a href="/"> Voltar</a>'
 
 @app.route('/multiplicar')
 def mult():
-    n1 = int(request.args.get('n1', default="0"))
-    n2 = int(request.args.get('n2', default="0"))
-    return str(n1 * n2) + '<br/><br/><a href="/"> Voltar</a>'
+    return '<head><title>Calculadora</title></head>' + str(get_num(request)[0] * get_num(request)[1]) + '<br/><br/><a href="/"> Voltar</a>'
 
 @app.route('/dividir')
 def div():
-    n1 = int(request.args.get('n1', default="0"))
-    n2 = int(request.args.get('n2', default="0"))
-    if n2 == 0:
-        return 'Não é possível dividir por "0" <br/><br/><a href="/"> Voltar</a>'
-    return str(n1 / n2) + '<br/><br/><a href="/"> Voltar</a>'
+    if get_num(request)[1] == 0:
+        return '<head><title>Calculadora</title></head>' + 'Não é possível dividir por "0" <br/><br/><a href="/"> Voltar</a>'
+    return '<head><title>Calculadora</title></head>' + str(get_num(request)[0] / get_num(request)[1]) + '<br/><br/><a href="/"> Voltar</a>'
 
 
 if __name__ == '__main__':
